@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRANSLATE 3D - Inventario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 TRANSLATE 3D</h1>
+            <p>Sistema de Inventario y Ventas</p>
+        </div>
+
+        <div id="errorContainer"></div>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar producto..." onkeyup="filterProducts()">
+            </div>
+            <select id="categoryFilter" class="category-filter" onchange="filterProducts()">
+                <option value="">-- Todas --</option>
+            </select>
+            <div class="product-count" id="productCount">0 productos</div>
+        </div>
+
+        <div class="summary-section">
+            <div class="summary-card">
+                <h3>💰 Total Vendido Hoy</h3>
+                <p class="summary-value" id="totalSale">$0.00</p>
+            </div>
+            <div class="summary-card">
+                <h3>📊 Unidades Vendidas</h3>
+                <p class="summary-value" id="totalQuantity">0</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="exportToCSV()">📥 Exportar CSV</button>
+            <button class="btn btn-danger" onclick="clearAllSales()">🗑️ Limpiar Ventas</button>
+        </div>
+
+        <div class="product-grid" id="productsGrid">
+            <div class="loading">Cargando productos...</div>
+        </div>
+    </div>
+
+    <!-- Modal para registrar venta -->
+    <div class="modal" id="saleModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSaleModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalProductName">Producto</h2>
+                <p id="modalProductCategory">Categoría</p>
+            </div>
+            <div class="form-group">
+                <label>Precio Unitario:</label>
+                <div class="info" id="modalProductPrice">$0</div>
+            </div>
+            <div class="form-group">
+                <label>Stock Disponible:</label>
+                <div class="info" id="modalProductStock">0 unidades</div>
+            </div>
+            <div class="form-group">
+                <label for="saleQuantity">Cantidad a Vender:</label>
+                <input type="number" id="saleQuantity" min="1" value="1">
+            </div>
+            <div class="form-group">
+                <label>Total Venta:</label>
+                <div class="info" id="saleTotal" style="font-size: 1.5em; color: var(--success); font-weight: 700;">$0</div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeSaleModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="recordSale()">Registrar Venta</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
